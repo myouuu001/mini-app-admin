@@ -7,8 +7,8 @@ import "./index.less";
 import { login, getUserInfo } from "@/store/actions";
 
 const Login = (props) => {
-  const { token, login } = props;
-  const [form] = Form.useForm();
+  const { form, token, login } = props;
+  const { getFieldDecorator } = form;
   const [loading, setLoading] = useState(false);
 
   const handleLogin = (username, password) => {
@@ -23,9 +23,20 @@ const Login = (props) => {
       });
   };
 
-  const handleSubmit = (values) => {
-    const { username, password } = values;
-    handleLogin(username, password);
+  const handleSubmit = (event) => {
+    // 阻止事件的默认行为
+    event.preventDefault();
+
+    // 对所有表单字段进行检验
+    form.validateFields((err, values) => {
+      // 检验成功
+      if (!err) {
+        const { username, password } = values;
+        handleLogin(username, password);
+      } else {
+        console.log("检验失败!");
+      }
+    });
   };
 
   if (token) {
@@ -33,73 +44,69 @@ const Login = (props) => {
   }
   
   return (
-    <DocumentTitle title="用户登录">
-      {/* <Helmet>
-        <title>用户登录</title>
-      </Helmet> */}
-      <div className="login-container">
-        <Form 
-          form={form}
-          onFinish={handleSubmit} 
-          className="content"
-          initialValues={{
-            username: "15020221010",
-            password: "kinit2022"
-          }}
-        >
-          <div className="title">
-            <h2>Admin User Login</h2>
+    <DocumentTitle title={"Admin User Login"}>
+          <div className="login-container">
+            <Form onSubmit={handleSubmit} className="content">
+              <div className="title">
+                <h2>Admin User Login</h2>
+              </div>
+              <Spin spinning={loading} tip="Logining...">
+                <Form.Item>
+                  {getFieldDecorator("username", {
+                    rules: [
+                      {
+                        required: true,
+                        whitespace: true,
+                        message: "Please enter your username",
+                      },
+                    ],
+                    initialValue: "15020221010", // 初始值
+                  })(
+                    <Input
+                      prefix={
+                        <Icon type="user" style={{ color: "rgba(0,0,0,.25)" }} />
+                      }
+                      placeholder="username"
+                    />
+                  )}
+                </Form.Item>
+                <Form.Item>
+                  {getFieldDecorator("password", {
+                    rules: [
+                      {
+                        required: true,
+                        whitespace: true,
+                        message: "Please enter your password",
+                      },
+                    ],
+                    initialValue: "kinit2022", // 初始值
+                  })(
+                    <Input
+                      prefix={
+                        <Icon type="lock" style={{ color: "rgba(0,0,0,.25)" }} />
+                      }
+                      type="password"
+                      placeholder="password"
+                    />
+                  )}
+                </Form.Item>
+                <Form.Item>
+                  <Button
+                    type="primary"
+                    htmlType="submit"
+                    className="login-form-button"
+                  >
+                    Login
+                  </Button>
+                </Form.Item>
+              </Spin>
+            </Form>
           </div>
-          <Spin spinning={loading} tip="登录中...">
-            <Form.Item
-              name="username"
-              rules={[
-                {
-                  required: true,
-                  whitespace: true,
-                  message: "请输入用户名",
-                },
-              ]}
-            >
-              <Input
-                prefix={
-                  <Icon type="user" style={{ color: "rgba(0,0,0,.25)" }} />
-                }
-                placeholder="Username"
-              />
-            </Form.Item>
-            <Form.Item
-              name="password"
-              rules={[
-                {
-                  required: true,
-                  whitespace: true,
-                  message: "请输入密码",
-                },
-              ]}
-            >
-              <Input
-                prefix={
-                  <Icon type="lock" style={{ color: "rgba(0,0,0,.25)" }} />
-                }
-                type="password"
-                placeholder="Password"
-              />
-            </Form.Item>
-            <Form.Item>
-              <Button
-                type="primary"
-                htmlType="submit"
-                className="login-form-button"
-              >
-                Login
-              </Button>
-            </Form.Item>
-          </Spin>
-        </Form>
-      </div>
-    </DocumentTitle>
+        </DocumentTitle>
   );
 };
 
-export default connect((state) => state.user, { login, getUserInfo })(Login);
+const WrapLogin = Form.create()(Login);
+export default connect((state) => state.user, { login, getUserInfo })(
+  WrapLogin
+);

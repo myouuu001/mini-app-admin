@@ -4,14 +4,26 @@ import "./index.less";
 
 const PanThumb = (props) => {
   const { image, zIndex, width, height, className } = props;
+  
+  // 如果没有图片，显示默认占位符
+  if (!image) {
+    return (
+      <div
+        className={`pan-item ${className}`}
+        style={{ zIndex, height, width }}
+      >
+        <div className="pan-info">
+          <div className="pan-info-roles-container">{props.children}</div>
+        </div>
+        <div className="pan-thumb" style={{ backgroundColor: '#f0f0f0' }} />
+      </div>
+    );
+  }
+
   return (
     <div
       className={`pan-item ${className}`}
-      style={{
-        zIndex,
-        height,
-        width,
-      }}
+      style={{ zIndex, height, width }}
     >
       <div className="pan-info">
         <div className="pan-info-roles-container">{props.children}</div>
@@ -22,7 +34,7 @@ const PanThumb = (props) => {
 };
 
 PanThumb.propTypes = {
-  image: PropTypes.string.isRequired,
+  image: PropTypes.string, // 移除 isRequired
   zIndex: PropTypes.number,
   width: PropTypes.string,
   height: PropTypes.string,
@@ -34,6 +46,7 @@ PanThumb.defaultProps = {
   height: "150px",
   zIndex: 1,
   className: "",
+  image: "", // 添加默认值
 };
 
 export default PanThumb;

@@ -12,7 +12,7 @@ process.env.CI = "false";
 const addCustomize = () => (config) => {
   if (config.output.publicPath) {
     config.output.publicPath =
-      process.env.NODE_ENV === "production"
+      process.env.REACT_APP_NODE_ENV === "production"
         ? "/react-antd-admin-template/"
         : "/";
   }

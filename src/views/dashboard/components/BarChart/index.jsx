@@ -25,7 +25,7 @@ class BarChart extends Component {
     debounce(this.initChart.bind(this), 300)();
     window.addEventListener("resize", () => this.resize());
   }
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     if (nextProps.sidebarCollapsed !== this.props.sidebarCollapsed) {
       this.resize();
     }

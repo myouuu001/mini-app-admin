@@ -39,21 +39,30 @@ const BreadCrumb = (props) => {
   const { location } = props;
   const { pathname } = location;
   let path = getPath(menuList, pathname);
+  
+  // 添加安全检查
+  if (!path || !Array.isArray(path)) {
+    path = [];
+  }
+  
   const first = path && path[0];
-  if (first && first.title.trim() !== "首页") {
+  if (first && first.title && first.title.trim() !== "首页") {
     path = [{ title: "首页", path: "/dashboard" }].concat(path);
   }
+  
   return (
     <div className="Breadcrumb-container">
       <Breadcrumb>
         {path &&
           path.map((item) =>
-            item.title === "首页" ? (
+            item && item.title === "首页" ? (
               <Breadcrumb.Item key={item.path}>
                 <a href={`#${item.path}`}>{item.title}</a>
               </Breadcrumb.Item>
             ) : (
-              <Breadcrumb.Item key={item.path}>{item.title}</Breadcrumb.Item>
+              <Breadcrumb.Item key={item.path}>
+                {item && item.title}
+              </Breadcrumb.Item>
             )
           )}
       </Breadcrumb>

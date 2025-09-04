@@ -27,12 +27,12 @@ const menuList = [
       },
     ],
   },
-  {
-    title: "引导页",
-    path: "/guide",
-    icon: "key",
-    roles:["admin","editor"]
-  },
+  // {
+  //   title: "引导页",
+  //   path: "/guide",
+  //   icon: "key",
+  //   roles:["admin","editor"]
+  // },
   {
     title: "权限测试",
     path: "/permission",
@@ -178,17 +178,17 @@ const menuList = [
     icon: "usergroup-add",
     roles:["admin"]
   },
-  {
-    title: "关于作者",
-    path: "/about",
-    icon: "user",
-    roles:["admin","editor","guest"]
-  },
-  {
-    title: "Bug收集",
-    path: "/bug",
-    icon: "bug",
-    roles:["admin"]
-  },
+  // {
+  //   title: "关于作者",
+  //   path: "/about",
+  //   icon: "user",
+  //   roles:["admin","editor","guest"]
+  // },
+  // {
+  //   title: "Bug收集",
+  //   path: "/bug",
+  //   icon: "bug",
+  //   roles:["admin"]
+  // },
 ];
 export default menuList;
