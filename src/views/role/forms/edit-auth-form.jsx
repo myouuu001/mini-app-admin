@@ -1,10 +1,10 @@
 import React, { Component } from "react";
-import { Form, Modal, Input } from "antd";
+import { Form, Modal, Input, Tree } from "antd";
 
 class EditAuthForm extends Component {
   render() {
-    const { visible, onCancel, onOk, confirmLoading, currentRowData, form } = this.props;
-    // const { getFieldDecorator } = form;
+    const { visible, onCancel, onOk, confirmLoading, currentRowData, form, treeData } = this.props;
+    const { getFieldDecorator } = form;
     const { id, menu_ids } = currentRowData;
     
     const formItemLayout = {
@@ -32,19 +32,27 @@ class EditAuthForm extends Component {
         onOk={handleOk}
         confirmLoading={confirmLoading}
       >
-        <Form {...formItemLayout} form={form} initialValues={{ id, menu_ids }}>
+        <Form {...formItemLayout}>
           <Form.Item name="id" label="ID:" style={{ display: 'none' }}>
-            <Input type="hidden" />
+            {getFieldDecorator("id", {
+              initialValue: id,
+            })(<Input type="hidden" />)}
           </Form.Item>
-          {/* <Form.Item name="menu_ids" label="菜单权限:">
-            <Tree
+          <Form.Item name="menu_ids" label="菜单权限:">
+             {getFieldDecorator('menu_ids', {
+              initialValue: menu_ids
+            })(<Tree
               checkable
-              defaultExpandAll
+              defaultExpandAll={true}
               fieldNames={{ title: 'label', key: 'value', children: 'children' }}
               defaultCheckedKeys={menu_ids}
               treeData={treeData}
-            />
-          </Form.Item> */}
+              onCheck={checkedKeys => {
+                console.log('onCheck', checkedKeys);
+                form.setFieldsValue({ menu_ids: checkedKeys });
+              }}
+            />)}
+          </Form.Item>
         </Form>
       </Modal>
     );

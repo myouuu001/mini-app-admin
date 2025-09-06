@@ -7,10 +7,11 @@ export function reqUserInfo() {
   })
 }
 
-export function getUsers() {
+export function getUsers(params) {
   return request({
-    url: '/user/list',
-    method: 'get'
+    url: 'vadmin/auth/users',
+    method: 'get',
+    params
   })
 }
 

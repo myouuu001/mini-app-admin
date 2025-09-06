@@ -23,6 +23,7 @@ const Clipboard = Loadable({loader: () => import(/*webpackChunkName:'Clipboard'*
 const Error404 = Loadable({loader: () => import(/*webpackChunkName:'Error404'*/'@/views/error/404'),loading: Loading});
 const User = Loadable({loader: () => import(/*webpackChunkName:'User'*/'@/views/user'),loading: Loading});
 const Auth = Loadable({loader: () => import(/*webpackChunkName:'User'*/'@/views/role'),loading: Loading});
+const AuthUser = Loadable({loader: () => import(/*webpackChunkName:'User'*/'@/views/role/user'),loading: Loading});
 // const About = Loadable({loader: () => import(/*webpackChunkName:'About'*/'@/views/about'),loading: Loading});
 // const Bug = Loadable({loader: () => import(/*webpackChunkName:'Bug'*/'@/views/bug'),loading: Loading});
 
@@ -49,6 +50,7 @@ export default [
   { path: "/clipboard", component: Clipboard, roles: ["admin","editor"] },
   { path: "/auth/list", component: User, roles: ["admin"] },
   { path: "/auth/roles", component: Auth, roles: ["admin"] },
+  { path: "/auth/user", component: AuthUser, roles: ["admin"] },
   // { path: "/about", component: About, roles: ["admin", "editor", "guest"] },
   // { path: "/bug", component: Bug, roles: ["admin"] },
   { path: "/error/404", component: Error404 },

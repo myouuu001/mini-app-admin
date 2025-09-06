@@ -24,6 +24,14 @@ export function editRole(data) {
   })
 }
 
+export function reqEditRole(data) {
+  return request({
+    url: `/vadmin/auth/roles/${data.id}`,
+    method: 'get',
+    data
+  })
+}
+
 export function addRole(data) {
   return request({
     url: '/vadmin/auth/roles',
@@ -36,5 +44,13 @@ export function reqRoleTreeOptions() {
   return request({
     url: '/vadmin/auth/menus/role/tree/options',
     method: 'get'
+  })
+}
+
+export function reqRoleUsers(params) {
+  return request({
+    url: 'vadmin/auth/users',
+    method: 'get',
+    params
   })
 }

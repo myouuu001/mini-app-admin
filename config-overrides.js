@@ -3,6 +3,8 @@ const {
   fixBabelImports,
   addLessLoader,
   addWebpackAlias,
+  addBabelPlugins,
+  getBabelLoader,
 } = require("customize-cra");
 const path = require("path");
 function resolve(dir) {
@@ -19,9 +21,26 @@ const addCustomize = () => (config) => {
   if (config.resolve) {
     config.resolve.extensions.push(".jsx");
   }
+  
+  // 处理 node_modules 中的可选链语法
+  const babelLoader = getBabelLoader(config);
+  if (babelLoader) {
+    babelLoader.include = [
+      babelLoader.include,
+      /node_modules\/react-draggable/,
+      /node_modules\/react-resizable/
+    ];
+  }
+  
   return config;
 };
 module.exports = override(
+  // 添加 Babel 插件支持可选链和空值合并
+  addBabelPlugins(
+    "@babel/plugin-proposal-optional-chaining",
+    "@babel/plugin-proposal-nullish-coalescing-operator"
+  ),
+
   // 针对antd实现按需打包: 根据import来打包(使用babel-plugin-import)
   fixBabelImports("import", {
     libraryName: "antd",

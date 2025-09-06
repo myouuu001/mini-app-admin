@@ -22,7 +22,7 @@ const menuList = [
       },
       {
         title: "用户管理",
-        path: "/auth/list",
+        path: "/auth/user",
         roles:["admin"],
       },
     ],
