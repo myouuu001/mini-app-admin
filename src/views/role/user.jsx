@@ -2,11 +2,10 @@ import React, { Component } from "react";
 import { Resizable } from 'react-resizable';
 import 'react-resizable/css/styles.css';
 import { Card, Button, Table, message, Divider, Pagination, Switch, Modal, Collapse, Form, Input, Select } from "antd";
-import { reqRoleUsers, deleteRole, editRole, addRole, reqRoleTreeOptions, reqEditRole } from "@/api/role";
+import { reqRoleUsers, deleteRole, reqAuthUser, addRole, reqRoleTreeOptions } from "@/api/role";
 // import TypingCard from '@/components/TypingCard'
-import EditUserForm from "./forms/edit-role-form"
-import AddUserForm from "./forms/add-role-form"
-import EditAuthForm from "./forms/edit-auth-form"
+import EditUserForm from "./forms/edit-user-form"
+import AddUserForm from "./forms/add-user-form"
 import './user.less'
 // const { Column } = Table;
 const { Panel } = Collapse;
@@ -41,8 +40,6 @@ class roleUser extends Component {
     addUserModalLoading: false,
     delUserModalLoading: false,
     isModalOpen: false,
-    editAuthModalVisible: false,
-    editAuthModalLoading: false,
 
     list: [],
     treeData: [],
@@ -205,16 +202,6 @@ class roleUser extends Component {
     })
   }
 
-  handleRole = async (rowData) => {
-    let row = await reqEditRole({id:rowData.id})
-    row.menu_ids = row.data.data.menus.map(item => String(item.id))
-    await this.getOptions()
-    this.setState({
-      currentRowData:Object.assign({}, row),
-      editAuthModalVisible: true,
-    });
-  }
-
   handleEditRole = (row) => {
     this.setState({
       currentRowData:Object.assign({}, row),
@@ -258,7 +245,7 @@ class roleUser extends Component {
   
   handleEditRoleOk = (values, form) => {
     this.setState({ editModalLoading: true });
-    editRole(values).then((response) => {
+    reqAuthUser(values).then((response) => {
       form.resetFields();
       this.setState({ editUserModalVisible: false, editUserModalLoading: false });
       message.success("编辑成功!")
@@ -279,12 +266,6 @@ class roleUser extends Component {
   handleAddCancel = _ => {
     this.setState({
       addUserModalVisible: false,
-    });
-  };
-
-  handleAuthCancel = _ => {
-    this.setState({
-      editAuthModalVisible: false,
     });
   };
 
@@ -309,33 +290,6 @@ class roleUser extends Component {
       }).catch(e => {
         this.setState({ addUserModalLoading: false });
         message.error("添加失败,请重试!")
-      })
-    });
-  };
-
-  handleEditAuth = (row) => {
-    this.setState({
-      currentRowData:Object.assign({}, row),
-      editAuthModalVisible: true,
-    });
-  }
-  handleEditAuthOk = _ => {
-    const { form } = this.editAuthFormRef.props;
-    form.validateFields((err, values) => {
-      console.log('handleEditAuthOk', values);
-      
-      if (err) {
-        return;
-      }
-      this.setState({ editAuthModalLoading: true });
-      editRole(values).then((response) => {
-        form.resetFields();
-        this.setState({ editAuthModalVisible: false, editAuthModalLoading: false });
-        message.success("编辑成功!")
-        this.getRoles()
-      }).catch(e => {
-        this.setState({ editAuthModalLoading: false });
-        message.error("编辑失败,请重试!")
       })
     });
   };
@@ -477,15 +431,6 @@ class roleUser extends Component {
           confirmLoading={this.state.addUserModalLoading}
           onCancel={this.handleAddCancel}
           onOk={this.handleAddUserOk}
-        />  
-        <EditAuthForm
-          wrappedComponentRef={formRef => this.editAuthFormRef = formRef}
-          currentRowData={this.state.currentRowData}
-          treeData={this.state.treeData}
-          visible={this.state.editAuthModalVisible}
-          confirmLoading={this.state.editAuthModalLoading}
-          onCancel={this.handleAuthCancel}
-          onOk={this.handleEditAuthOk}
         />  
 
         <Modal

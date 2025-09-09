@@ -54,3 +54,11 @@ export function reqRoleUsers(params) {
     params
   })
 }
+
+export function reqAuthUser(data) {
+  return request({
+    url: '/vadmin/auth/users',
+    method: 'post',
+    data
+  })
+}
