@@ -1,34 +1,11 @@
 import React, { Component } from "react";
-import { Resizable } from 'react-resizable';
-import 'react-resizable/css/styles.css';
-import { Card, Button, Table, message, Divider, Pagination, Switch, Modal, Collapse, Form, Input, Select } from "antd";
+import { Card, Button, message, Divider, Pagination, Switch, Modal, Collapse, Form, Input, Select } from "antd";
 import { reqRoleUsers, deleteRole, reqAuthUser, addRole, reqRoleTreeOptions } from "@/api/role";
 // import TypingCard from '@/components/TypingCard'
 import EditUserForm from "./forms/edit-user-form"
 import AddUserForm from "./forms/add-user-form"
-import './user.less'
-// const { Column } = Table;
+import ResizeTable from '@/utils/resizeTable'
 const { Panel } = Collapse;
-
-const ResizeableTitle = props => {
-  const { onResize, width, ...restProps } = props;
-
-  if (!width) {
-    return <th {...restProps} />;
-  }
-
-  return (
-    <Resizable
-      width={width}
-      height={0}
-      onResize={onResize}
-      draggableOpts={{ enableUserSelectHack: false }}
-    >
-      <th {...restProps} />
-    </Resizable>
-  );
-};
-
 class roleUser extends Component {
   _isMounted = false; // 这个变量是用来标志当前组件是否挂载
   state = {
@@ -79,7 +56,7 @@ class roleUser extends Component {
             title: '邮箱',
             dataIndex: 'email',
             align: 'center',
-            width: 150,
+            width: 100,
         },
         {
             title: '权限',
@@ -100,7 +77,7 @@ class roleUser extends Component {
             title: '最近登录时间',
             dataIndex: 'update_datetime',
             align: 'center',
-            width: 180,
+            width: 120,
         },
         {
             title: '操作',
@@ -115,23 +92,6 @@ class roleUser extends Component {
             )
         },
     ]
-  };
-
-  components = {
-    header: {
-      cell: ResizeableTitle,
-    },
-  };
-
-  handleResize = index => (e, { size }) => {
-    this.setState(({ columns }) => {
-      const nextColumns = [...columns];
-      nextColumns[index] = {
-        ...nextColumns[index],
-        width: size.width,
-      };
-      return { columns: nextColumns };
-    });
   };
 
   getRoles = async () => {
@@ -329,17 +289,6 @@ class roleUser extends Component {
     }));
   };
   render() {
-    const { list } = this.state;
-    
-    // 确保每列都有 onHeaderCell 配置
-    const columns = this.state.columns.map((col, index) => ({
-      ...col,
-      onHeaderCell: column => ({
-        width: column.width,
-        onResize: this.handleResize(index),
-      }),
-    }));
-
     const title = (
       <span>
         <Button type='primary' onClick={this.handleAddUser}>添加角色</Button>
@@ -375,35 +324,14 @@ class roleUser extends Component {
         </Collapse>
         <br/>
         <Card title={title}>
-          <Table
+          <ResizeTable
             bordered
             rowKey="id"
-            dataSource={list}
-            columns={columns}
-            components={this.components}
+            list={this.state.list}
+            columns={this.state.columns}
             pagination={false}
             loading={this.state.loading}
           />
-          {/* <Table bordered rowKey="id" dataSource={list} pagination={false}>
-            <Column title="ID" dataIndex="id" key="id" align="center"/>
-            <Column title="姓名" dataIndex="name" key="name" align="center"/>
-            <Column title="昵称" dataIndex="nickname" key="nickname" align="center"/>
-            <Column title="手机号" dataIndex="telephone" key="telephone" align="center"/>
-            <Column title="邮箱" dataIndex="email" key="email" align="center"/>
-            <Column title="权限" dataIndex="role_key" key="role_key" align="center"/>
-            <Column title="状态" dataIndex="is_active" key="is_active" align="center" render={(text, row) => (
-              <Switch defaultChecked={row.is_active} disabled onChange={checked => this.handleSwitchChange(checked, 'is_active')} />
-            )}/>
-            <Column title="最近登录时间" dataIndex="update_datetime" key="update_datetime" align="center"/>
-            <Column title="操作" key="action" width={195} align="center" render={(text, row) => (
-              row.role_key === "admin" ? ('') : (<span>
-                <Button type="danger" shape="circle" icon="delete" title="删除" onClick={this.handleDeleteRole.bind(null,row)}/>
-                <Divider type="vertical" />
-                <Button type="primary" shape="circle" icon="edit" title="编辑" onClick={this.handleEditRole.bind(null,row)}/>
-              </span>
-              )
-            )}/>
-          </Table> */}
         </Card>
         <br />
         <Pagination

@@ -69,40 +69,6 @@ class AddRoleForm extends Component {
           </Form.Item>
         </Form>
       </Modal>
-
-      // <Modal
-      //   title="新增角色"
-      //   visible={visible}
-      //   onCancel={onCancel}
-      //   onOk={handleOk}
-      //   confirmLoading={confirmLoading}
-      // >
-      //   <Form {...formItemLayout}>
-      //     <Form.Item name="name" label="角色名称:" rules={[{ required: true, message: "请输入角色名称!" }]}>
-      //       <Input placeholder="请输入角色名称" />
-      //     </Form.Item>
-      //     <Form.Item name="role_key" label="权限字符:" rules={[{ required: true, message: "请输入权限字符!" }]}>
-      //       <Input placeholder="请输入权限字符" />
-      //     </Form.Item>
-      //     <Form.Item name="desc" label="角色描述:">
-      //       <TextArea placeholder="请输入角色描述" />
-      //     </Form.Item>
-      //     <Form.Item name="order" label="显示排序:" rules={[{ required: true, message: "请输入显示排序!" }]}>
-      //       <InputNumber min={1} max={10} placeholder="请输入显示排序" style={{ width: 150 }} />
-      //     </Form.Item>
-      //     <Form.Item name="disabled" label="角色状态:">
-      //       <Radio.Group options={[
-      //         { value: false, label: '正常' },
-      //         { value: true, label: '禁用' }]} />
-      //     </Form.Item>
-      //     <Form.Item name="is_admin" label="最高权限:">
-      //       <Radio.Group>
-      //         <Radio value={true}>启用</Radio>
-      //         <Radio value={false}>禁用</Radio>
-      //       </Radio.Group>
-      //     </Form.Item>
-      //   </Form>
-      // </Modal>
     );
   }
 }

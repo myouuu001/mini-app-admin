@@ -27,64 +27,85 @@ const menuList = [
       },
     ],
   },
-  // {
-  //   title: "引导页",
-  //   path: "/guide",
-  //   icon: "key",
-  //   roles:["admin","editor"]
-  // },
   {
-    title: "权限测试",
-    path: "/permission",
-    icon: "lock",
+    title: "用户管理",
+    path: "/user",
+    icon: "usergroup-add",
+    roles:["admin"],
     children: [
       {
-        title: "权限说明",
-        path: "/permission/explanation",
-        roles:["admin"]
+        title: "用户列表",
+        path: "/user/list",
+        roles:["admin"],
       },
       {
-        title: "admin页面",
-        path: "/permission/adminPage",
-        roles:["admin"]
-      },
-      {
-        title: "guest页面",
-        path: "/permission/guestPage",
-        roles:["guest"]
-      },
-      {
-        title: "editor页面",
-        path: "/permission/editorPage",
-        roles:["editor"]
-      },
-    ],
+        title: "主播列表",
+        path: "/user/streamer",
+        roles:["admin"],
+      }
+    ]
   },
   {
-    title: "组件",
-    path: "/components",
-    icon: "appstore",
-    roles:["admin","editor"],
+    title: "订单管理",
+    path: "/order",
+    icon: "property-safety",
+    roles:["admin"],
     children: [
       {
-        title: "富文本",
-        path: "/components/richTextEditor",
-        roles:["admin","editor"],
+        title: "订单流水",
+        path: "/order/list",
+        roles:["admin"],
       },
       {
-        title: "Markdown",
-        path: "/components/Markdown",
-        roles:["admin","editor"],
+        title: "支付流水",
+        path: "/order/bill",
+        roles:["admin"],
       },
-      {
-        title: "拖拽列表",
-        path: "/components/draggable",
-        roles:["admin","editor"],
-      },
-    ],
+    ]
   },
   {
-    title: "图表",
+    title: "审核管理",
+    path: "/audit",
+    icon: "control",
+    roles:["admin"],
+    children: [
+      {
+        title: "主播资料审核",
+        path: "/audit/streamer",
+        roles:["admin"],
+      },
+      {
+        title: "用户资料审核",
+        path: "/audit/user",
+        roles:["admin"],
+      },
+    ]
+  },
+  {
+    title: "配置管理",
+    path: "/config",
+    icon: "control",
+    roles:["admin"],
+    children: [
+      {
+        title: "标签管理",
+        path: "/config/tags",
+        roles:["admin"],
+      },
+      {
+        title: "商品管理",
+        path: "/config/product",
+        roles:["admin"],
+      },
+      {
+        title: "渠道管理",
+        path: "/config/channel",
+        roles:["admin"],
+      }
+    ]
+  },
+  {
+    title: "数据中心",
     path: "/charts",
     icon: "area-chart",
     roles:["admin","editor"],
@@ -107,88 +128,38 @@ const menuList = [
     ],
   },
   {
-    title: "路由嵌套",
-    path: "/nested",
+    title: "日志管理",
+    path: "/log",
     icon: "cluster",
     roles:["admin","editor"],
     children: [
       {
-        title: "菜单1",
-        path: "/nested/menu1",
-        children: [
-          {
-            title: "菜单1-1",
-            path: "/nested/menu1/menu1-1",
-            roles:["admin","editor"],
-          },
-          {
-            title: "菜单1-2",
-            path: "/nested/menu1/menu1-2",
-            children: [
-              {
-                title: "菜单1-2-1",
-                path: "/nested/menu1/menu1-2/menu1-2-1",
-                roles:["admin","editor"],
-              },
-            ],
-          },
-        ],
+        title: "登录日志",
+        path: "/log/login",
+      },
+      {
+        title: "操作日志",
+        path: "/log/operation",
       },
     ],
   },
-  {
-    title: "表格",
-    path: "/table",
-    icon: "table",
-    roles:["admin","editor"]
-  },
-  {
-    title: "Excel",
-    path: "/excel",
-    icon: "file-excel",
-    roles:["admin","editor"],
-    children: [
-      {
-        title: "导出Excel",
-        path: "/excel/export",
-        roles:["admin","editor"]
-      },
-      {
-        title: "上传Excel",
-        path: "/excel/upload",
-        roles:["admin","editor"]
-      }
-    ],
-  },
-  {
-    title: "Zip",
-    path: "/zip",
-    icon: "file-zip",
-    roles:["admin","editor"]
-  },
-  {
-    title: "剪贴板",
-    path: "/clipboard",
-    icon: "copy",
-    roles:["admin","editor"]
-  },
-  {
-    title: "用户管理",
-    path: "/user",
-    icon: "usergroup-add",
-    roles:["admin"]
-  },
   // {
-  //   title: "关于作者",
-  //   path: "/about",
-  //   icon: "user",
-  //   roles:["admin","editor","guest"]
-  // },
-  // {
-  //   title: "Bug收集",
-  //   path: "/bug",
-  //   icon: "bug",
-  //   roles:["admin"]
+  //   title: "Excel",
+  //   path: "/excel",
+  //   icon: "file-excel",
+  //   roles:["admin","editor"],
+  //   children: [
+  //     {
+  //       title: "导出Excel",
+  //       path: "/excel/export",
+  //       roles:["admin","editor"]
+  //     },
+  //     {
+  //       title: "上传Excel",
+  //       path: "/excel/upload",
+  //       roles:["admin","editor"]
+  //     }
+  //   ],
   // },
 ];
 export default menuList;

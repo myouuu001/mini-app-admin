@@ -1,8 +1,8 @@
 import React, { Component } from "react";
-import { Descriptions, Modal, Badge } from "antd";
+import { Descriptions, Modal, Avatar, Tag } from "antd";
 class UserInfo extends Component {
   render() {
-    const { visible, onCancel, onOk, confirmLoading } = this.props;
+    const { visible, onCancel, onOk, confirmLoading, userInfo } = this.props;
     return (
       <Modal
         title="用户详情"
@@ -10,35 +10,30 @@ class UserInfo extends Component {
         onCancel={onCancel}
         onOk={onOk}
         confirmLoading={confirmLoading}
+        width={ '70%' }
+        footer={null}
       >
-        {/* <Descriptions title="" bordered>
-            <Descriptions.Item label="Product">Cloud Database</Descriptions.Item>
-            <Descriptions.Item label="Billing Mode">Prepaid</Descriptions.Item>
-            <Descriptions.Item label="Automatic Renewal">YES</Descriptions.Item>
-            <Descriptions.Item label="Order time">2018-04-24 18:00:00</Descriptions.Item>
-            <Descriptions.Item label="Usage Time" span={2}>
-            2019-04-24 18:00:00
+        <Descriptions bordered size="middle" column={2}>
+            <Descriptions.Item label="用户ID">{ userInfo.id }</Descriptions.Item>
+            <Descriptions.Item label="用户名">{ userInfo.username }</Descriptions.Item>
+            <Descriptions.Item label="头像">
+              <Avatar size={64} icon="user" src={userInfo.avatar} />
             </Descriptions.Item>
-            <Descriptions.Item label="Status" span={3}>
-            <Badge status="processing" text="Running" />
+            <Descriptions.Item label="UID">{ userInfo.uid }</Descriptions.Item>
+            <Descriptions.Item label="昵称">{ userInfo.nickname }</Descriptions.Item>
+            <Descriptions.Item label="角色">
+            {  userInfo.role === 'streamer' ? <Tag color="gold">主播</Tag> : <Tag color="blue">用户</Tag> }
             </Descriptions.Item>
-            <Descriptions.Item label="Negotiated Amount">$80.00</Descriptions.Item>
-            <Descriptions.Item label="Discount">$20.00</Descriptions.Item>
-            <Descriptions.Item label="Official Receipts">$60.00</Descriptions.Item>
-            <Descriptions.Item label="Config Info">
-            Data disk type: MongoDB
-            <br />
-            Database version: 3.4
-            <br />
-            Package: dds.mongo.mid
-            <br />
-            Storage space: 10 GB
-            <br />
-            Replication factor: 3
-            <br />
-            Region: East China 1<br />
+            <Descriptions.Item label="邮箱">{  userInfo.email }</Descriptions.Item>
+            <Descriptions.Item label="手机号">{  userInfo.telephone }</Descriptions.Item>
+            <Descriptions.Item label="状态">
+              { userInfo.status === 1 ? <Tag color="green">正常</Tag> : <Tag color="red">禁用</Tag> }
             </Descriptions.Item>
-        </Descriptions> */}
+            <Descriptions.Item label="注册时间">
+              { userInfo.created_at }
+            </Descriptions.Item>
+            <Descriptions.Item label="最后登录">{  userInfo.updated_at }</Descriptions.Item>
+        </Descriptions>
       </Modal>
     );
   }

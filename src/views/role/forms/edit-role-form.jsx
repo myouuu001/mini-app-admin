@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { Form, Input, InputNumber, Modal, Radio } from "antd";
-// import { reqValidatUserName } from "@/api/user";
 const { TextArea } = Input;
 class EditRoleForm extends Component {
   render() {
@@ -48,7 +47,7 @@ class EditRoleForm extends Component {
           </Form.Item>
           <Form.Item label="显示排序:">
             {getFieldDecorator("order", {
-              initialValue: order,
+              initialValue: Number(order),
               rules: [{ required: true, message: "请输入显示排序!" }]
             })(<InputNumber min={1} max={10} placeholder="请输入显示排序" style={{ width: 150 }} />)}
           </Form.Item>

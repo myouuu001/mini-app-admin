@@ -1,15 +1,27 @@
 import request from '@/utils/request'
 
-export function reqUserInfo(id) {
+export function reqUserInfoData(id) {
   return request({
     url: `/vadmin/user/users/${id}`,
     method: 'get',
   })
 }
 
+export function reqUserInfo() {
+  return request({
+    url: `/vadmin/user/users`,
+    method: 'get',
+  })
+}
 
+export function reqUserAssets(id) {
+  return request({
+    url: `/vadmin/user/assets/${id}`,
+    method: 'get',
+  })
+}
 
-export function getUsers(params) {
+export function reqUsers(params) {
   return request({
     url: '/vadmin/user/users',
     method: 'get',
@@ -57,3 +69,9 @@ export function reqValidatUserID(data) {
   })
 }
 
+export function reqUserTransactions(id) {
+  return request({
+    url: `/vadmin/user/users/${id}/transactions`,
+    method: 'get',
+  })
+}
