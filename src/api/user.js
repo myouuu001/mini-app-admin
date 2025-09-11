@@ -1,15 +1,25 @@
 import request from '@/utils/request'
 
-export function reqUserInfo() {
+export function reqUserInfo(id) {
   return request({
-    url: '/vadmin/auth/user/admin/current/info',
+    url: `/vadmin/user/users/${id}`,
     method: 'get',
   })
 }
 
+
+
 export function getUsers(params) {
   return request({
-    url: 'vadmin/auth/users',
+    url: '/vadmin/user/users',
+    method: 'get',
+    params
+  })
+}
+
+export function getStreamerUsers(params) {
+  return request({
+    url: '/vadmin/user/streamers',
     method: 'get',
     params
   })

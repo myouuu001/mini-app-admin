@@ -20,7 +20,6 @@ class Router extends React.Component {
                 if (role) {
                   return <Layout />;
                 } else {
-                  console.log('getUserInfo');
                   getUserInfo().then(() => <Layout />);
                 }
               }
