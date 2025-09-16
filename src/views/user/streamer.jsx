@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { Card, Button, Divider, Pagination, Collapse, Form, Input, Select } from "antd";
-import { getStreamerUsers } from "@/api/user";
-import { reqRoles } from '@/api/role';
+import { getStreamerUsers, reqUserStreamersInfo } from "@/api/user";
 import ResizeTable from '@/utils/resizeTable'
 import StreamerDetails from './forms/streamer/details'
 import LiveLog from './forms/streamer/liveLog'
@@ -150,8 +149,11 @@ class roleUser extends Component {
     ]
   };
 
-  handleDetail = () => {
+  handleDetail = async (row) => {
+    const res = await reqUserStreamersInfo(row.user_id)
+    if(res.data.code !== 200) return
     this.setState({
+      details: res.data.data,
       detailsModalVisible: true
     })
   }
@@ -216,18 +218,9 @@ class roleUser extends Component {
     );
   };
 
-  getRoles = async () => {
-    const result = await reqRoles()
-    const { data, code } = result.data
-    if (code === 200) {
-      this.setState({ roleList: data });
-    }
-  }
-
   componentDidMount() {
     this._isMounted = true;
     this.getUsers()
-    // this.getRoles()
   }
   componentWillUnmount() {
     this._isMounted = false;

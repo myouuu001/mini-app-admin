@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Descriptions, Modal, Card, Pagination } from "antd";
 import ResizeTable from '@/utils/resizeTable'
 
-import { reqUserTransactions } from '@/api/user'
+import { reqUserStreamersLiveData } from '@/api/user'
 class LiveLog extends Component {
   state = {
     list: [],
@@ -22,85 +22,85 @@ class LiveLog extends Component {
       },
       {
         title: '昵称',
-        dataIndex: 'type',
+        dataIndex: 'nickname',
         align: 'center',
         width: 100,
       },
       {
         title: '直播标题',
-        dataIndex: 'type2',
+        dataIndex: 'title',
         align: 'center',
         width: 100,
       },
       {
         title: '状态',
         dataIndex: 'ticket_count',
-        align: 'center',
+        align: 'status',
         width: 100,
       },
       {
         title: '开始时间',
-        dataIndex: 'before_amount',
+        dataIndex: 'actual_start',
         align: 'center',
         width: 100,
       },
       {
         title: '结束时间',
-        dataIndex: 'after_amount',
+        dataIndex: 'actual_end',
         align: 'center',
         width: 100,
       },
       {
         title: '总时长',
-        dataIndex: 'created_at',
+        dataIndex: 'total_duration',
         align: 'center',
         width: 100,
       },
       {
         title: '中断次数',
-        dataIndex: 'created_at',
+        dataIndex: 'interrupt_count',
         align: 'center',
         width: 100,
       },
       {
         title: '中断时长(秒)',
-        dataIndex: 'created_at',
+        dataIndex: 'interruption_duration',
         align: 'center',
         width: 100,
       },
       {
         title: '观众数量',
-        dataIndex: 'created_at',
+        dataIndex: 'view_count',
         align: 'center',
         width: 100,
       },
       {
         title: '最高观众',
-        dataIndex: 'created_at',
+        dataIndex: 'highest_view_count',
         align: 'center',
         width: 100,
       },
       {
         title: '礼物总数',
-        dataIndex: 'created_at',
+        dataIndex: 'gift_count',
         align: 'center',
         width: 100,
       },
       {
         title: '消息数',
-        dataIndex: 'created_at',
+        dataIndex: 'message_count',
         align: 'center',
         width: 100,
       },
       {
         title: '群组增长人数',
-        dataIndex: 'created_at',
+        dataIndex: 'group_count',
         align: 'center',
         width: 100,
       },
       {
         title: '直播UUID',
-        dataIndex: 'created_at',
+        dataIndex: 'uuid',
         align: 'center',
         width: 100,
       },
@@ -108,7 +108,7 @@ class LiveLog extends Component {
   };
 
   getTransactions = async (id) => {
-    const result = await reqUserTransactions(id)
+    const result = await reqUserStreamersLiveData(id)
     const { data, code, count } = result.data
     if (code === 200) {
       this.setState({ loading: false });

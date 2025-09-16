@@ -25,16 +25,16 @@ class Details extends Component {
               { details.created_at }
             </Descriptions.Item>
             <Descriptions.Item label="标签">
-              { details.tags.map((tag) => (
-                <Tag color="blue">{tag}</Tag>
+              { details.tags && details.tags.map((tag) => (
+                <Tag key={tag.id} color="blue">{tag.name}</Tag>
               )) }
             </Descriptions.Item>
         </Descriptions>
         <Descriptions bordered size="middle" column={2} title="直播数据">
-           <Descriptions.Item label="总粉丝数">0</Descriptions.Item>
-            <Descriptions.Item label="总时长">0</Descriptions.Item>
-            <Descriptions.Item label="总收益">0</Descriptions.Item>
-            <Descriptions.Item label="总礼物收益">0</Descriptions.Item>
+           <Descriptions.Item label="总粉丝数">{ details.followers }</Descriptions.Item>
+            <Descriptions.Item label="总时长">{ details.total_live_duration }</Descriptions.Item>
+            <Descriptions.Item label="总收益">{ details.total_sessions }</Descriptions.Item>
+            <Descriptions.Item label="总礼物收益">{ details.total_gifts }</Descriptions.Item>
             <Descriptions.Item label="今日粉丝增长">{ 0 }</Descriptions.Item>
             <Descriptions.Item label="今日直播时长">{ 0 }</Descriptions.Item>
             <Descriptions.Item label="近7日粉丝增长数">0</Descriptions.Item>

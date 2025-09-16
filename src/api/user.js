@@ -75,3 +75,18 @@ export function reqUserTransactions(id) {
     method: 'get',
   })
 }
+
+export function reqUserStreamersInfo(id) {
+  return request({
+    url: `/vadmin/user/streamers/${id}`,
+    method: 'get',
+  })
+}
+
+export function reqUserStreamersLiveData(params) {
+  return request({
+    url: `/vadmin/user/streamers/${params.id}/live_data`,
+    method: 'get',
+    params
+  })
+}
