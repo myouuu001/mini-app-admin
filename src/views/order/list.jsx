@@ -377,7 +377,7 @@ class roleUser extends Component {
         />
 
         <Modal
-          title="Basic Modal"
+          title="提示" style={{top:'32%'}}
           visible={this.state.isModalOpen}
           confirmLoading={this.state.delUserModalLoading}
           onOk={this.handleDelete}

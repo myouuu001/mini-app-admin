@@ -49,7 +49,7 @@ class EditRoleForm extends Component {
             {getFieldDecorator("order", {
               initialValue: Number(order),
               rules: [{ required: true, message: "请输入显示排序!" }]
-            })(<InputNumber min={1} max={10} placeholder="请输入显示排序" style={{ width: 150 }} />)}
+            })(<InputNumber min={1}  placeholder="请输入显示排序" style={{ width: 150 }} />)}
           </Form.Item>
           <Form.Item label="角色状态:">
             {getFieldDecorator("disabled", {

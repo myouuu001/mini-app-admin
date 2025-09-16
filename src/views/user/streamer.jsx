@@ -3,6 +3,8 @@ import { Card, Button, Divider, Pagination, Collapse, Form, Input, Select } from
 import { getStreamerUsers } from "@/api/user";
 import { reqRoles } from '@/api/role';
 import ResizeTable from '@/utils/resizeTable'
+import StreamerDetails from './forms/streamer/details'
+import LiveLog from './forms/streamer/liveLog'
 const { Panel } = Collapse;
 
 class roleUser extends Component {
@@ -10,6 +12,13 @@ class roleUser extends Component {
   state = {
     users: [],
     currentRowData: {},
+    details: {},
+    liveLog: {},
+
+    detailsModalVisible: false,
+    detailsModalLoading: false,
+    liveLogModalVisible: false,
+    liveLogModalLoading: false,
 
     list: [],
     liveStatusList: [
@@ -132,14 +141,39 @@ class roleUser extends Component {
             width: 220,
             render: (text, row) => (
               <span>
-                <Button type="link" onClick={this.handleEditRole.bind(null,row)}>详情</Button>
+                <Button type="link" onClick={this.handleDetail.bind(null,row)}>详情</Button>
                 <Divider type="vertical" />
-                <Button type="link" onClick={this.handledeleteUser.bind(null,row)}>直播记录</Button>
+                <Button type="link" onClick={this.handleLiveLog.bind(null,row)}>直播记录</Button>
               </span>
             )
         },
     ]
   };
+
+  handleDetail = () => {
+    this.setState({
+      detailsModalVisible: true
+    })
+  }
+
+  handleLiveLog = () => {
+    this.setState({
+      liveLogModalVisible: true
+    })
+  }
+
+  handleCancel = () => {
+    if(this.state.detailsModalVisible){
+      this.setState({
+        detailsModalVisible: false
+      })
+    }
+    if(this.state.liveLogModalVisible){
+       this.setState({
+        liveLogModalVisible: false
+      })
+    }
+  }
 
   getUsers = async () => {
     const result = await getStreamerUsers(this.state.listQuery)
@@ -294,6 +328,23 @@ class roleUser extends Component {
           showSizeChanger
           showQuickJumper
           hideOnSinglePage={false}
+        />
+
+        <StreamerDetails
+          visible={this.state.detailsModalVisible}
+          confirmLoading={this.state.detailsModalLoading}
+          details={this.state.details}
+          onCancel={this.handleCancel}
+          onOk={this.handleCancel}
+        />
+
+        <LiveLog
+          visible={this.state.liveLogModalVisible}
+          confirmLoading={this.state.liveLogModalLoading}
+          details={this.state.details}
+          liveLog={this.state.liveLog}
+          onCancel={this.handleCancel}
+          onOk={this.handleCancel}
         />
       </div>
     );

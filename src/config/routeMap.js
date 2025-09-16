@@ -27,7 +27,10 @@ const Order = Loadable({loader: () => import(/*webpackChunkName:'About'*/'@/view
 const Bill = Loadable({loader: () => import(/*webpackChunkName:'About'*/'@/views/order/bill'),loading: Loading});
 const AuditStreamer = Loadable({loader: () => import(/*webpackChunkName:'About'*/'@/views/audit/streamer'),loading: Loading});
 const AuditUser = Loadable({loader: () => import(/*webpackChunkName:'About'*/'@/views/audit/user'),loading: Loading});
-// const Bug = Loadable({loader: () => import(/*webpackChunkName:'Bug'*/'@/views/bug'),loading: Loading});
+const Tags = Loadable({loader: () => import(/*webpackChunkName:'Bug'*/'@/views/system/tags'),loading: Loading});
+const Product = Loadable({loader: () => import(/*webpackChunkName:'Bug'*/'@/views/system/product'),loading: Loading});
+const Channel = Loadable({loader: () => import(/*webpackChunkName:'Bug'*/'@/views/system/channel'),loading: Loading});
+const LogLogin = Loadable({loader: () => import(/*webpackChunkName:'Bug'*/'@/views/log/login'),loading: Loading});
 
 export default [
   { path: "/dashboard", component: Dashboard, roles: ["admin","editor","guest"] },
@@ -57,4 +60,8 @@ export default [
   { path: "/order/bill", component: Bill, roles: ["admin"] },
   { path: "/audit/streamer", component: AuditStreamer, roles: ["admin"] },
   { path: "/audit/user", component: AuditUser, roles: ["admin"] },
+  { path: "/config/tags", component: Tags, roles: ["admin", "editor"] },
+  { path: "/config/product", component: Product, roles: ["admin", "editor"] },
+  { path: "/config/channel", component: Channel, roles: ["admin", "editor"] },
+  { path: "/log/login", component: LogLogin, roles: ["admin"] },
 ];
